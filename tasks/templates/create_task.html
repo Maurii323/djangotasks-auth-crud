@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="container">
+        <h1 class="display-3 text-center">Create a Task</h1>
+        <div class="row">
+            <section class="col-md-6 offset-md-3 mt-3">
+                <form method="POST" class="card card-body bg-light-subtle">
+                    {% csrf_token %}
+                    {{taskform}}
+
+                    <!-- Si existe la variable error, la muestra -->
+                    {% if error %}
+                    <p class="text-center text-danger">
+                        {{error}}
+                    </p>
+                    {% endif %}
+                    <div class="text-center">
+                        <button class="btn btn-dark">
+                            Create
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+{% endblock %}

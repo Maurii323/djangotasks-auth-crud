@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="container">
+        <h1 class="text-center display-3 py-4">Tasks Pending</h1>
+        <div class="row">
+            {% for task in tasks %}
+                <div class="col-md-4">
+                    <div class="card card-body bg-light-subtle text-center m-3">
+                        <h3>{{task.title}} {% if task.important %} 🌟 {% endif %}</h3>
+                        <p> {{task.description}} </p>
+                        <div class="row">
+                            <form action="{% url 'task_complete' task.id %}" method="POST" class="col-auto mt-1">
+                                {% csrf_token %}
+                                <div class="text-center">
+                                    <button class="btn btn-success"> 
+                                        Complete 
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="col-auto mt-1">
+                                <a href="{% url 'task_details' task.id %}" class="btn btn-dark ">
+                                    Modify
+                                </a>
+                            </div>
+
+                            <form action="{% url 'task_delete' task.id %}" method="POST" class="col-auto mt-1">
+                                <button class="btn btn-danger "> 
+                                    delete 
+                                </button>
+                                {% csrf_token %}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+{% endblock %}

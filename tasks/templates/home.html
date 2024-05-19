@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="container py-5">
+       <section class="card card-body bg-light-subtle">
+            <h1 class="display-1 text-center">Django App</h1>
+            <h5> ¡Bienvenido {{user.username}} a mi proyecto de administración de tareas!</h5>
+            <p>
+                Este es mi primer proyecto en django y SQLite3, y representa una parte importante de mi portfolio como desarrollador.            
+            </p>
+            <h5>Caracteristicas principales de la aplicacion</h5>
+            <ul>
+                <li>
+                    <p>
+                        CRUD de Tareas: Funcionalidades completas de CRUD (Crear, Leer, Actualizar, Eliminar) para la gestión de tareas, 
+                        facilitando la organización y seguimiento de actividades pendientes y completadas.
+                    </p>
+                </li>
+
+                <li>
+                    <p>
+                        Registro y Login de Usuarios: Sistema de registro y autenticación que permite a los usuarios crear cuentas y acceder de manera segura a sus tareas personales.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Base de Datos SQLite3: Utilización de SQLite3 como base de datos para almacenar de manera segura y eficiente la información de las tareas.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        bootstrap: Utilizacion de bootstrap para los estilos de la aplicacion.
+                    </p>
+                </li>
+            </ul>
+            <p>Gracias por su visita y su interés.</p>
+                
+
+            {% if not user.is_authenticated %}
+                <div class="text-center">
+                    <a class= "btn btn-dark" href="{% url 'signup' %}"> SignUp</a>
+                    <a class= "btn btn-dark" href="{% url 'login' %}"> Login</a>
+                </div>
+            {% else %}
+                <div class="text-center py-2">
+                    <a class= "btn btn-dark" href="{% url 'create_task' %}"> Create a Task</a>
+                    <a class= "btn btn-dark" href="{% url 'logout' %}"> LogOut</a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}
