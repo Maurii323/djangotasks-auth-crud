@@ -84,15 +84,22 @@ WSGI_APPLICATION = 'djangoCRUD.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-DATABASES = {
-    # lee las variables de entorno de la base de datos de render
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost/postgres',
-        conn_max_age=600
-    )
+# si esta en produccion, usa la base de datos postgres de render, si esta en desarrollo usa la sqlite3 local
+if not DEBUG:
+    DATABASES = {
+        # lee las variables de entorno de la base de datos de render
+        'default': dj_database_url.config(
+            default='postgresql://postgres:postgres@localhost/postgres',
+            conn_max_age=600
+        )
+    }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
